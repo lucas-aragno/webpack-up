@@ -22,7 +22,7 @@ You can set `--manager` to use `npm` or `yarn` ( it will use `npm` by default ) 
 
 ## Example
 
-let's say I have a folder called `my-app` with the following content:
+Let's say I have a folder called `my-app` with the following content:
 
 ```
 .
@@ -33,7 +33,9 @@ let's say I have a folder called `my-app` with the following content:
 │   └── index.js
 ```
 
-Where `App.js` contain the main React/Preact component (e.g react):
+Where `App.js` contain the main React/Preact component:
+
+React example:
 
 ```javascript
 import React, { Component } from 'react'
@@ -51,7 +53,25 @@ class App extends Component {
 export default App
 ```
 
-and `index.js` just contain the logic for the render and re imports (again e.g for react)
+Preact example:
+
+```javascript
+import { h, Component } from 'preact'
+
+export default class App extends Component {
+  render (props, state) {
+    return (
+      <div>
+        hello
+      </div>
+    )
+  }
+}
+```
+
+and `index.js` just contain the logic for the render and re imports
+
+React example:
 
 ```javascript
 import React from 'react'
@@ -65,6 +85,19 @@ document.addEventListener('DOMContentLoaded', event => (
     document.getElementById('root')
   )
 ))
+```
+
+
+Preact example:
+
+```javascript
+import { h, render } from 'preact'
+import App from './App'
+
+document.addEventListener('DOMContentLoaded', event => (
+ render(<App />, document.getElementById('root'))
+))
+
 ```
 
 I can run `webpack-up` on this directory like:
@@ -104,7 +137,7 @@ And I'm ready to roll. I can change my `index.html` to be something like:
 
 ```
 
-and then run `./node_modules/.bin/webpack-dev-server` and you got yourself a webpack-dev server with your react app!
+And then run `./node_modules/.bin/webpack-dev-server` and you got yourself a webpack-dev server with your react app!
 
 You could also tweak that same `index.html` to use `./public/bundle.js` instead and run `webpack -p` to get your production build.
 
