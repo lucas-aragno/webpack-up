@@ -2,6 +2,12 @@
 
 CLI tool to jumpstart projects using webpack + babel + react/preact
 
+## Install
+
+```bash
+  npm install -g webpack-up
+```
+
 ## How to use it
 
 I made this tool with the idea of adding webpack + babel + react to existing projects ( e.g adding a demo app to a library ) but you can use it to start a project from scratch you only need a directory with a `package.json` and run:
