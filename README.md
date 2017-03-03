@@ -104,4 +104,4 @@ You could also tweak that same `index.html` to use `./public/bundle.js` instead 
 
 ## Why?
 
-Why to use this instead of (CRA)[https://github.com/facebookincubator/create-react-app]? Well I like to have my configs so I can keep on working on them instead of having all those things under the hood (and even if you eject the app you might not need **all** the things that they use) so this approach will give you a basic setup that you can actually change without much effort
+Why to use this instead of [CRA](https://github.com/facebookincubator/create-react-app)? Well I like to have my configs so I can keep on working on them instead of having all those things under the hood (and even if you eject the app you might not need **all** the things that they use) so this approach will give you a basic setup that you can actually change without much effort
