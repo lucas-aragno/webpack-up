@@ -4,9 +4,10 @@ const fs = require('fs')
 const path = require('path')
 const exec = require('child_process').exec
 const chalk = require('chalk')
+const replaceStream = require('replacestream')
 
 function handleInstallationErrors (error, stdout, stderr) {
-  console.log(chalk.red(`stdout: ${stdout}`))
+  console.log(chalk.green(`stdout: ${stdout}`))
   if (stderr !== null) {
     console.log(chalk.red(`stderr: ${stderr}`))
   }
@@ -30,11 +31,26 @@ function updatePackage (manager, framework) {
   if (framework === 'preact') {
     console.log(chalk.green('Installing More Dependencies For Preact'))
     exec(`${installDevCmd} babel-plugin-transform-react-jsx`, handleInstallationErrors)
+  } else {
+    console.log(chalk.green('Installing More Dependencies For React'))
+    exec(`${installDevCmd} babel-preset-react`, handleInstallationErrors)
   }
 }
 
-function setUpTemplate (framework) {
-  
+function setUpTemplate (framework, entrypoint, directory) {
+  console.log(chalk.green('Coping Webpack configs...'))
+  fs.createReadStream(path.join(__dirname, 'templates', framework, 'webpack.config.js'))
+  .pipe(replaceStream('custom-entry-point', entrypoint))
+  .pipe(fs.createWriteStream(path.join(directory, 'webpack.config.js')))
+  console.log(chalk.green('Coping Babel configs...'))
+  fs.createReadStream(path.join(__dirname, 'templates', framework, '.babelrc'))
+  .pipe(fs.createWriteStream(path.join(directory, '.babelrc')))
+}
+
+function createPublicFolder (directory) {
+  if (!fs.existsSync(path.join(directory, 'public'))) {
+    fs.mkdirSync(path.join(directory, 'public'))
+  }
 }
 
 program
@@ -45,7 +61,8 @@ program
   .action(function (directory) {
     if (fs.existsSync(path.join(directory, 'package.json'))) {
       updatePackage(program.manager, program.framework)
-      setUpTemplate(program.framework, program.entrypoint)
+      setUpTemplate(program.framework, program.entrypoint, directory)
+      createPublicFolder(directory)
     } else {
       console.log(chalk.red(`Error: No package.json found on ${directory}!`))
     }
