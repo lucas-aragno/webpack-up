@@ -1,0 +1,19 @@
+{
+  "name": "webpack-up",
+  "version": "1.0.0",
+  "description": "CLI tool to setup webpack within an app",
+  "main": "index.js",
+  "repository": {
+    "url": "http://github.com/lucas-aragno/webpack-up",
+    "type": "git"
+  },
+  "bin": {
+    "webpack-up": "./index.js"
+  },
+  "author": "Lucas Aragno",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "commander": "^2.9.0"
+  }
+}
